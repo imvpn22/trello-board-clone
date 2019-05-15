@@ -34,9 +34,9 @@ body {
 .header-title {
 	font-family: "Source Sans Pro";
 	font-weight: 600;
-	font-size: 1.1rem;
+	font-size: 1.1em;
 	letter-spacing: 1px;
-	padding: 1rem;
+	padding: 1em;
 	/* background-color: #60a3ea; */
 }
 .header-content {
@@ -49,7 +49,7 @@ body {
 }
 
 .header-search {
-	padding: 1rem;
+	padding: 1em;
 	display: flex;
 	align-items: center;
 }
@@ -80,7 +80,7 @@ body {
 	align-items: center;
 }
 .nav-btn {
-	padding: 1.2rem;
+	padding: 1.2em;
 	font-size: 1.1em;
 	position: relative;
 	color: #999;
@@ -101,13 +101,13 @@ body {
 	box-shadow: 0 0 2px 0px #e06262;
 }
 .profile-name {
-	padding: 1.2rem;
+	padding: 1.2em;
 }
 .profile-icon {
-	margin-right: 1rem;
+	margin-right: 1em;
 	background: #e8e8e8;
 	color: #b3b3b3;
-	padding: .7rem .9rem;
+	padding: .7em .9em;
 	border-radius: 50%;
 }
 
@@ -127,7 +127,7 @@ body {
 
 .sidebar-item {
 	box-sizing: border-box;
-	padding: 1.4rem 0;
+	padding: 1.4em 0;
 	text-align: center;
 	border-left: 3px solid rgba(0, 0, 0, 0);
 	color: #bbb;
@@ -158,7 +158,7 @@ body {
 /*  Style for main content */
 
 .main-content {
-	height: calc(100vh - 60px);
+	/* height: calc(100vh - 60px); */
 	width: 100%;
 	background-color: #fafafa;
 }
@@ -192,14 +192,14 @@ body {
 
 .board-container {
 	display: flex;
-	overflow-x: scroll;
+	/* overflow-x: scroll; */
 }
 .task-list-card {
-	min-width: 245px;
-    background: #f5f5f5;
-    margin: 2em;
+	width: 250px;
+    background-color: #eee;
+    margin: 1em;
     padding: 5px 0;
-    border-radius: 9px;
+    border-radius: 4px;
     color: #666;
     box-shadow: 1px 1px 6px 3px #e0e0e0;
     border: 1px solid #eee;
@@ -271,16 +271,23 @@ body {
 	color: #d4d4d4;
 }
 .task-add {
-	padding: .5em 1em;
+	margin: .5em;
+	padding: .8em 1em;
+	border-radius: 4px;
 	text-align: center;
 	color: #888;
+	cursor: pointer;
+}
+.task-add:hover {
+	background-color: #ddd;
+	color: #444;
 }
 .task-add i {
 	border: 1px solid;
 	border-radius: 50%;
 	padding: 2px 3px;
 	font-size: 0.8em;
-
+	margin-left: 5px;
 }
 .task-add span {}
 
