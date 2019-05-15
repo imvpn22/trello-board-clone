@@ -192,9 +192,10 @@ body {
 
 .board-container {
 	display: flex;
+	overflow-x: scroll;
 }
 .task-list-card {
-	width: 245px;
+	min-width: 245px;
     background: #f5f5f5;
     margin: 2em;
     padding: 5px 0;
@@ -226,6 +227,7 @@ body {
 	border-radius: 3px;
 	padding: 5px 10px;
 	display: inline-block;
+	text-transform: capitalize;
 }
 .low-priority {
 	background-color: #29a96f;
