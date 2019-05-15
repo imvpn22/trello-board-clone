@@ -5,7 +5,6 @@ const createCards = ( taskList ) => {
     const boardContainer = document.querySelector('#boardContainer');
 
     taskList.forEach( list => {
-        console.log(list);
         let taskListCard = document.createElement('div');
         taskListCard.className = 'task-list-card';
 
@@ -24,10 +23,12 @@ const createCards = ( taskList ) => {
 
 const createTask = (tasks, taskListCard) => {
     tasks.forEach(task => {
-        console.log(task);
 
         const taskCard = document.createElement('div');
         taskCard.className = 'task-card';
+        taskCard.id = task.id;
+        taskCard.setAttribute('draggable', 'true');
+
 
         const taskPriority = document.createElement('div');
         taskPriority.className = 'task-priority';
@@ -114,12 +115,80 @@ const createTask = (tasks, taskListCard) => {
 }
 
 
+const dragStart = (ev) => {
+    console.log('Start');
+
+    ev.dataTransfer.setData('Content', ev.target.id);
+
+    ev.target.style.opacity = "0.4";
+
+}
+const dragEnd = (ev) => {
+    console.log('End');
+
+    // ev.dataTransfer.setData('Content', ev.target.id);
+
+    ev.target.style.opacity = "1";
+
+    // TODO: Remove the task from old board
+
+}
+
+const dragOver = (ev) => {
+    ev.preventDefault();
+    console.log('Allow drop: ' + ev.target.id);
+}
+
+const dragEnter = (ev) => {
+    ev.preventDefault();
+    console.log('Drag Enter: ' + ev.target.id);
+}
+const dragLeave = (ev) => {
+    ev.preventDefault();
+    console.log('Drag Leave: ' + ev.target.id);
+}
+
+const dragDrop = (ev) => {
+    ev.preventDefault();
+
+    const data = ev.dataTransfer.getData('Content');
+
+    console.log(data);
+
+    ev.target.appendChild(document.getElementById(data));
+
+    // TODO: Add the task to new board
+}
+
+
+
+
 const main = (boardsData) => {
 
     createCards(boardsData);
 
     // boardContainer.appendChild(taskListHtml);
 
+    const taskListCards = document.querySelectorAll('.task-list-card');
+    taskListCards.forEach(taskListCard => {
+        taskListCard.addEventListener('dragover', (ev) => dragOver(ev));
+        taskListCard.addEventListener('dragenter', (ev) => dragEnter(ev));
+        taskListCard.addEventListener('dragleave', (ev) => dragLeave(ev));
+        taskListCard.addEventListener('drop', (ev) => dragDrop(ev));
+    });
+
+    const taskCards = document.querySelectorAll('.task-card');
+    taskCards.forEach(taskCard => {
+        taskCard.addEventListener('dragstart', (ev) => dragStart(ev));
+        taskCard.addEventListener('dragend', (ev) => dragEnd(ev));
+        // taskListCard.addEventListener('dragover', (ev) => allowDrop(ev));
+        // taskCard.addEventListener('drop', (ev) => dragDrop(ev));
+
+    })
+
+
 }
 main(boards);
+
+
 
