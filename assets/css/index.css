@@ -196,14 +196,14 @@ body {
 }
 .task-list-card {
 	width: 250px;
-    background-color: #eee;
-    margin: 1em;
-    padding: 5px 0;
-    border-radius: 4px;
-    color: #666;
-    box-shadow: 1px 1px 6px 3px #e0e0e0;
-    border: 1px solid #eee;
-    border-top: 3px solid #5bc796;
+	background-color: #eee;
+	margin: 1em;
+	padding: 5px 0;
+	border-radius: 4px;
+	color: #666;
+	box-shadow: 1px 1px 6px 3px #e0e0e0;
+	border: 1px solid #eee;
+	border-top: 3px solid #5bc796;
 }
 .task-list-title {
 	padding: .5em 1em;
@@ -271,12 +271,16 @@ body {
 	color: #d4d4d4;
 }
 .task-add {
-	margin: .5em;
-	padding: .8em 1em;
-	border-radius: 4px;
-	text-align: center;
-	color: #888;
-	cursor: pointer;
+	width: calc(100% - 1em);
+    margin: .5em;
+    padding: .8em 1em;
+    border-radius: 4px;
+    text-align: center;
+    color: #888;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
 }
 .task-add:hover {
 	background-color: #ddd;
@@ -292,3 +296,72 @@ body {
 .task-add span {}
 
 /* -------------------------------- */
+
+.empty-task-card {
+	height: 100px;
+    margin: .6em;
+    background-color: #f3f3f3;
+    color: #a5a5a5;
+    border: 2px dashed #cccccc;
+    border-radius: 4px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.empty-task-card:hover {
+    background-color: #ddd;
+    color: #999;
+    border-color: #b9b9b9;
+}
+
+.show-empty .empty-task-card {
+	display: flex;
+}
+
+.task-add-form {
+	display: flex;
+    margin: .5em;
+    padding: .5em;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 4px;
+    color:  #555;
+}
+
+.task-add-form textarea,
+.task-add-form select,
+.task-add-form span {
+	margin: 5px 0;
+}
+.task-add-form select {
+	border: none;
+    outline: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    color: #444;
+}
+.task-add-form span button {
+	padding: 6px 14px;
+    background: none;
+    border: none;
+    outline: none;
+    background-color: #656565;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+}
+.btn-success {
+	background-color: #109645 !important;
+}
+.btn-danger {
+	background-color: #c55656 !important;
+}
+
+/* Hidden and show class */
+.hidden {
+	display: none;
+}
+

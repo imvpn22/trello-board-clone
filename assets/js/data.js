@@ -1,4 +1,5 @@
 let boards = [{
+    id: "kldfjsfs8s9df98s7f98d7",
     listTitle: "Pending",
     tasks: [{
         id: "asd7a9sd9a7d9",
@@ -25,8 +26,8 @@ let boards = [{
         commentCount: 2,
         linkCount: 3,
     }]
-
 }, {
+    id: "df798gf798g987gf987dg879",
     listTitle: "In Progress",
     tasks: [{
         id: "asd7lks8s88s",
@@ -40,12 +41,5 @@ let boards = [{
         description: "What are you doing",
         commentCount: 2,
         linkCount: 2,
-    }, {
-        id: "asd7sdf879dsf",
-        priority: "high",
-        description: "This is very high priority task",
-        commentCount: 5,
-        linkCount: 10,
     }]
-
 }]
