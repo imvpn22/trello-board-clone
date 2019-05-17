@@ -76,8 +76,8 @@ const createTask = (task, taskListCard) => {
         taskCard.addEventListener('dragend', (ev) => dragEnd(ev));
 
         const taskDeleteBtn = document.createElement('button');
-        taskDeleteBtn.className = 'task-delete-btn';
-        taskDeleteBtn.innerHTML = 'Delete';
+        taskDeleteBtn.title = 'Delete this task';
+        taskDeleteBtn.classList.add('task-delete-btn', 'fas', 'fa-trash');
 
         taskDeleteBtn.addEventListener('click', ev => removeTaskFromList(ev) );
         taskCard.appendChild(taskDeleteBtn);

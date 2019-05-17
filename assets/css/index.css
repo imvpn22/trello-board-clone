@@ -234,19 +234,21 @@ body {
 	border-color: #ddd;
 }
 .task-delete-btn {
-	color: red;
+	color: #e03e3e;
     position: absolute;
-    right: .5em;
-    background: none;
+    right: .4em;
+    top: .4em;
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 4px 12px;
-    border-radius: 4px;
-    font-size: .9em;
+    padding: 9px 10px;
+    border-radius: 50%;
+    font-size: .8em;
+    background: none;
+    transition: all .2s ease-in-out;
 }
 .task-delete-btn:hover {
-    background: #eee;
+    background: #ffbfbf;
 }
 .task-priority {
 	font-size: .8em;
