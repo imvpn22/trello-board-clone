@@ -1,6 +1,6 @@
 body,
 html {
-	width: 100vw;
+	/* width: 100vw; */
 	height: 100vh;
 }
 body {
@@ -14,7 +14,7 @@ body {
 .container {
 	/* padding: 10px 15px; */
 	/* margin: 10px auto; */
-	/*   box-sizing: border-box; */
+	/* box-sizing: border-box; */
 	height: 100%;
 	background-color: #eee;
 }
@@ -118,7 +118,7 @@ body {
 
 /* Style for side bar */
 .sidebar {
-	width: 100px;
+	min-width: 100px;
 	height: calc(100vh - 60px);
 	background-color: #fff;
 	box-shadow: 1px 0px 0px 0px #dcdcdc;
@@ -192,10 +192,19 @@ body {
 
 .board-container {
 	display: flex;
-	/* overflow-x: scroll; */
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding-bottom: 1em;
+}
+.task-list-wrapper {
+	width: 272px;
+	margin: 0 4px;
+	/* height: 100%; */
+	box-sizing: border-box;
 }
 .task-list-card {
-	width: 250px;
+	min-width: 250px;
+	max-width: 250px;
 	background-color: #eee;
 	margin: 1em;
 	padding: 5px 0;
@@ -209,6 +218,8 @@ body {
 	padding: .5em 1em;
 	font-size: 1.2em;
 	border-radius: 10px;
+	font-weight: 800;
+	text-transform: capitalize;
 }
 .task-card {
 	margin: .6em;
@@ -272,15 +283,16 @@ body {
 }
 .task-add {
 	width: calc(100% - 1em);
-    margin: .5em;
-    padding: .8em 1em;
-    border-radius: 4px;
-    text-align: center;
-    color: #888;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
+	margin: .5em;
+	padding: .8em 1em;
+	border-radius: 4px;
+	text-align: center;
+	color: #888;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	background: none;
+	/* background-color: #e0e0e0; */
 }
 .task-add:hover {
 	background-color: #ddd;
@@ -295,63 +307,47 @@ body {
 }
 .task-add span {}
 
-/* -------------------------------- */
-
-.empty-task-card {
-	height: 100px;
-    margin: .6em;
-    background-color: #f3f3f3;
-    color: #a5a5a5;
-    border: 2px dashed #cccccc;
-    border-radius: 4px;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2em;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-.empty-task-card:hover {
-    background-color: #ddd;
-    color: #999;
-    border-color: #b9b9b9;
-}
-
-.show-empty .empty-task-card {
-	display: flex;
-}
-
+/* Style for new Task form */
 .task-add-form {
 	display: flex;
-    margin: .5em;
-    padding: .5em;
-    flex-direction: column;
-    background-color: #fff;
-    border-radius: 4px;
-    color:  #555;
+	margin: .5em;
+	padding: .5em;
+	flex-direction: column;
+	background-color: #fff;
+	border-radius: 4px;
+	color:  #555;
 }
 
 .task-add-form textarea,
+.task-add-form input,
 .task-add-form select,
 .task-add-form span {
 	margin: 5px 0;
+	padding: 8px 15px;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+}
+.task-add-form textarea,
+.task-add-form input {
+	border: 1px dashed #ccc;
 }
 .task-add-form select {
 	border: none;
-    outline: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    color: #444;
+	outline: none;
+	padding: 5px 10px;
+	border-radius: 3px;
+	color: #444;
 }
-.task-add-form span button {
+.task-add-form button {
 	padding: 6px 14px;
-    background: none;
-    border: none;
-    outline: none;
-    background-color: #656565;
-    border-radius: 3px;
-    color: #fff;
-    cursor: pointer;
+	background: none;
+	border: none;
+	outline: none;
+	background-color: #656565;
+	border-radius: 3px;
+	color: #fff;
+	cursor: pointer;
 }
 .btn-success {
 	background-color: #109645 !important;
@@ -363,5 +359,36 @@ body {
 /* Hidden and show class */
 .hidden {
 	display: none;
+}
+
+/* -------------------------------- */
+.empty-task-card {
+	height: 50px;
+	margin: .6em;
+	background-color: #f3f3f3;
+	color: #a5a5a5;
+	border: 2px dashed #cccccc;
+	border-radius: 4px;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.2em;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.empty-task-card:hover {
+	background-color: #ddd;
+	color: #999;
+	border-color: #b9b9b9;
+}
+
+.show-empty .empty-task-card {
+	display: flex;
+}
+
+/* Style for Add new list */
+.new-list-card {
+	border: 2px dashed #ddd;
+	box-shadow: none;
 }
 
