@@ -363,10 +363,28 @@ const dragDrop = (ev) => {
 /***********************************************
  *    Entry point Function definition
  */
-const main = (boardsData) => {
+const main = (boardData) => {
+
+    console.log(boardData);
+
+    // if (typeof(Storage) !== "undefined") {
+    //     // Code for localStorage/sessionStorage.
+    //     // console.log('localStorage supported');
+
+    //     if ('trelloCloneBoard' in localStorage) {
+    //         boardData = JSON.parse(localStorage.getItem('trelloCloneBoard'));
+    //         console.log(boardData);
+    //     } else {
+    //         localStorage.setItem('trelloCloneBoard', JSON.stringify(boardData));
+    //     }
+
+    // } else {
+    //     // Sorry! No Web Storage support..
+    //     console.log('No Support of localstore!!!!');
+    // }
 
     // Create HTML UI from data
-    createCards(boardsData);
+    createCards(boardData);
 
     // Event Listeners for newList button and Form
     const createListButton = document.getElementById('createListButton');
@@ -380,4 +398,6 @@ const main = (boardsData) => {
 }
 
 // Call the Entry function
+let boardData = boards;
+
 main(boards);
