@@ -201,6 +201,7 @@ body {
 	margin: 0 4px;
 	/* height: 100%; */
 	box-sizing: border-box;
+	padding-bottom: 6em;
 }
 .task-list-card {
 	min-width: 250px;
