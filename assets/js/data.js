@@ -32,13 +32,29 @@ let boards = [{
     tasks: [{
         id: "asd7lks8s88s",
         priority: "low",
-        description: "UI Design",
+        description: "UI Design Improvement",
+        commentCount: 3,
+        linkCount: 4,
+    }, {
+        id: "ndf87f8d9998fd",
+        priority: "medium",
+        description: "What to do next",
+        commentCount: 2,
+        linkCount: 2,
+    }]
+}, {
+    id: "kjsdf87df879f879fs",
+    listTitle: "Done",
+    tasks: [{
+        id: "slkdf89d798sf",
+        priority: "low",
+        description: "Basic UI Design",
         commentCount: 3,
         linkCount: 4,
     }, {
         id: "asd7a9s89d7f9",
         priority: "medium",
-        description: "What are you doing",
+        description: "Create Basic HTML",
         commentCount: 2,
         linkCount: 2,
     }]
