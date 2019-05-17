@@ -76,16 +76,32 @@
                 </div>
                 <div class="board-container" id="boardContainer">
 
+                    <!-- Task List Will be rendered here -->
+
+                    <div class="task-list-wrapper" id="newListWrapper">
+                        <div class="task-list-card new-list-card">
+                            <button class="task-add" id="createListButton">
+                                Create New List
+                                <i class="fas fa-plus"></i>
+                            </button>
+
+                            <form class="task-add-form hidden" id="createListForm">
+                                <input name="listTitle" type="text" placeholder="Enter title of the list" autofocus required />
+                                <button type="submit" class="btn-success"> Add List </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
 
-                </div>
 
             </div>
+
         </div>
-        <div class="footer"></div>
     </div>
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/main.js"></script>
+    <div class="footer"></div>
+</div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 
 </html>
