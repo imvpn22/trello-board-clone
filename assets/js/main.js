@@ -95,7 +95,7 @@ const createTask = (task, taskListCard) => {
         taskCard.appendChild(taskDescription);
 
         const taskFooter = document.createElement('div');
-        taskFooter.className = 'task-footer';
+        taskFooter.classList.add('task-footer', 'hidden');
 
         const taskComment = document.createElement('div');
         taskComment.className = 'task-comment';
@@ -268,19 +268,21 @@ const handleTaskSave = (ev) => {
 
 // Function to add a task to a Task List in JSON Data
 const addTaskToList = (listId, task) => {
+    let boardData = getLocalStoreData();
 
-    boards = boards.map(taskList => {
+    boardData = boardData.map(taskList => {
         if (taskList.id === listId) {
             taskList.tasks.push(task);
         }
         return taskList;
     });
 
-    console.log(boards);
+    updateLocalStoreData(boardData);
 }
 
 // Function to remove a task from a Task List in JSON Data
 const removeTaskFromList = (ev) => {
+    let boardData = getLocalStoreData();
 
     const taskCard = ev.target.parentNode;
     const taskListCard = taskCard.parentNode;
@@ -290,26 +292,28 @@ const removeTaskFromList = (ev) => {
     taskListId = taskListCard.className;
     taskId = taskCard.id;
 
-    boards = boards.map(taskList => {
+    boardData = boardData.map(taskList => {
         if (taskList.id === taskListId) {
             taskList.tasks = taskList.tasks.filter(task => task.id !== taskId);
         }
         return taskList;
     });
 
-    // console.log(boards);
+    updateLocalStoreData(boardData);
 }
 
 // Function to add a List data to Boards JSON Data
 const addListToBoard = (newList) => {
-    boards.push(newList);
-    console.log(boards);
+    let boardData = getLocalStoreData();
+    boardData.push(newList);
+    updateLocalStoreData(boardData);
 }
 
 // Function to remove a List data to Boards JSON Data
 const removeListFromBoard = (listId) => {
-    boards = boards.filter(list => list !== listId);
-    console.log(boards);
+    let boardData = getLocalStoreData();
+    boardData = boardData.filter(list => list !== listId);
+    updateLocalStoreData(boardData);
 }
 
 
@@ -356,6 +360,9 @@ const dragDrop = (ev) => {
         const data = ev.dataTransfer.getData('Content');
         const taskList = document.querySelector(`.${ev.target.id}`);
         taskList.appendChild(document.getElementById(data));
+
+        // TODO: Move Task in JSON data
+
     }
 }
 
@@ -363,25 +370,41 @@ const dragDrop = (ev) => {
 /***********************************************
  *    Entry point Function definition
  */
-const main = (boardData) => {
+const getLocalStoreData = () => {
+    if (typeof(Storage) !== "undefined") {
+        return JSON.parse(localStorage.getItem('trelloCloneBoard'));
+    } else {
+        return boards;
+    }
+}
 
-    console.log(boardData);
+const updateLocalStoreData = (boardData) => {
+    if (typeof(Storage) !== "undefined") {
+        localStorage.setItem('trelloCloneBoard', JSON.stringify(boardData));
+    } else {
+        boards = boardData;
+    }
+}
 
-    // if (typeof(Storage) !== "undefined") {
-    //     // Code for localStorage/sessionStorage.
-    //     // console.log('localStorage supported');
 
-    //     if ('trelloCloneBoard' in localStorage) {
-    //         boardData = JSON.parse(localStorage.getItem('trelloCloneBoard'));
-    //         console.log(boardData);
-    //     } else {
-    //         localStorage.setItem('trelloCloneBoard', JSON.stringify(boardData));
-    //     }
+const main = () => {
 
-    // } else {
-    //     // Sorry! No Web Storage support..
-    //     console.log('No Support of localstore!!!!');
-    // }
+    let boardData = boards;
+
+    // Check if data is available in localStorage
+    if (typeof(Storage) !== "undefined") {
+        console.log('localStorage supported');
+
+        if ('trelloCloneBoard' in localStorage) {
+            let localStoreData = getLocalStoreData();
+            boardData = localStoreData.length > 0 ? localStoreData : boardData;
+        } else {
+            localStorage.setItem('trelloCloneBoard', JSON.stringify(boardData));
+        }
+    } else {
+        // Sorry! No Web Storage support..
+        console.log('No Support of localstore!');
+    }
 
     // Create HTML UI from data
     createCards(boardData);
@@ -398,6 +421,4 @@ const main = (boardData) => {
 }
 
 // Call the Entry function
-let boardData = boards;
-
-main(boards);
+main();
