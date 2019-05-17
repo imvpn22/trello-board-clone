@@ -75,6 +75,13 @@ const createTask = (task, taskListCard) => {
         taskCard.addEventListener('dragstart', (ev) => dragStart(ev));
         taskCard.addEventListener('dragend', (ev) => dragEnd(ev));
 
+        const taskDeleteBtn = document.createElement('button');
+        taskDeleteBtn.className = 'task-delete-btn';
+        taskDeleteBtn.innerHTML = 'Delete';
+
+        taskDeleteBtn.addEventListener('click', ev => removeTaskFromList(ev) );
+        taskCard.appendChild(taskDeleteBtn);
+
         const taskPriority = document.createElement('div');
         taskPriority.className = 'task-priority';
         taskPriority.classList.add(task.priority === 'high' ? 'high-priority' :
@@ -273,7 +280,15 @@ const addTaskToList = (listId, task) => {
 }
 
 // Function to remove a task from a Task List in JSON Data
-const removeTaskFromList = (taskListId, taskId) => {
+const removeTaskFromList = (ev) => {
+
+    const taskCard = ev.target.parentNode;
+    const taskListCard = taskCard.parentNode;
+
+    taskListCard.removeChild(taskCard);
+
+    taskListId = taskListCard.className;
+    taskId = taskCard.id;
 
     boards = boards.map(taskList => {
         if (taskList.id === taskListId) {
@@ -282,7 +297,7 @@ const removeTaskFromList = (taskListId, taskId) => {
         return taskList;
     });
 
-    console.log(boards);
+    // console.log(boards);
 }
 
 // Function to add a List data to Boards JSON Data

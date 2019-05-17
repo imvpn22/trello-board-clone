@@ -227,9 +227,25 @@ body {
 	background-color: #fff;
 	border-radius: 4px;
 	border: 1px dashed rgba(0,0,0,0);
+	position: relative;
 }
 .task-card:hover {
 	border-color: #ddd;
+}
+.task-delete-btn {
+	color: red;
+    position: absolute;
+    right: .5em;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: .9em;
+}
+.task-delete-btn:hover {
+    background: #eee;
 }
 .task-priority {
 	font-size: .8em;
