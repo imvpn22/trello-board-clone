@@ -24,6 +24,10 @@ const createTaskListCard = (list, boardContainer) => {
     const taskListWrapper = document.createElement('div');
     taskListWrapper.classList.add('task-list-wrapper');
     taskListWrapper.id = list.id;
+    taskListWrapper.addEventListener('dragenter', (ev) => dragEnter(ev));
+    taskListWrapper.addEventListener('dragover', (ev) => dragOver(ev));
+    taskListWrapper.addEventListener('dragleave', (ev) => dragLeave(ev));
+    taskListWrapper.addEventListener('drop', (ev) => dragDrop(ev));
 
     const taskListCard = document.createElement('div');
     taskListCard.className = 'task-list-card';
@@ -68,6 +72,8 @@ const createTask = (task, taskListCard) => {
         taskCard.className = 'task-card';
         taskCard.id = task.id;
         taskCard.setAttribute('draggable', 'true');
+        taskCard.addEventListener('dragstart', (ev) => dragStart(ev));
+        taskCard.addEventListener('dragend', (ev) => dragEnd(ev));
 
         const taskPriority = document.createElement('div');
         taskPriority.className = 'task-priority';
@@ -304,7 +310,7 @@ const dragStart = (ev) => {
 }
 
 const dragEnd = (ev) => {
-    console.log('End');
+    // console.log('End');
     ev.target.style.opacity = "1";
 }
 
@@ -355,24 +361,6 @@ const main = (boardsData) => {
         createListButton.classList.add('hidden');
     });
     createListForm.addEventListener('submit', ev => handleListSave(ev));
-
-    // Drag and Drop Event Listeners
-    const taskListWrappers = document.querySelectorAll('.task-list-wrapper');
-    taskListWrappers.forEach(taskListWrapper => {
-        taskListWrapper.addEventListener('dragenter', (ev) => dragEnter(ev));
-        taskListWrapper.addEventListener('dragover', (ev) => dragOver(ev));
-        taskListWrapper.addEventListener('dragleave', (ev) => dragLeave(ev));
-        taskListWrapper.addEventListener('drop', (ev) => dragDrop(ev));
-    });
-
-    const taskCards = document.querySelectorAll('.task-card');
-    taskCards.forEach(taskCard => {
-        taskCard.addEventListener('dragstart', (ev) => dragStart(ev));
-        taskCard.addEventListener('dragend', (ev) => dragEnd(ev));
-        // taskListCard.addEventListener('dragover', (ev) => allowDrop(ev));
-        // taskCard.addEventListener('drop', (ev) => dragDrop(ev));
-
-    })
 
 }
 
