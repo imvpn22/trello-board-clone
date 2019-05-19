@@ -79,7 +79,7 @@ const createTask = (task, taskListCard) => {
         taskDeleteBtn.title = 'Delete this task';
         taskDeleteBtn.classList.add('task-delete-btn', 'fas', 'fa-trash');
 
-        taskDeleteBtn.addEventListener('click', ev => removeTaskFromList(ev) );
+        taskDeleteBtn.addEventListener('click', ev => handleTaskDelete(ev) );
         taskCard.appendChild(taskDeleteBtn);
 
         const taskPriority = document.createElement('div');
@@ -283,16 +283,8 @@ const addTaskToList = (listId, task) => {
 }
 
 // Function to remove a task from a Task List in JSON Data
-const removeTaskFromList = (ev) => {
+const removeTaskFromList = (taskListId, taskId) => {
     let boardData = getLocalStoreData();
-
-    const taskCard = ev.target.parentNode;
-    const taskListCard = taskCard.parentNode;
-
-    taskListCard.removeChild(taskCard);
-
-    taskListId = taskListCard.className;
-    taskId = taskCard.id;
 
     boardData = boardData.map(taskList => {
         if (taskList.id === taskListId) {
@@ -302,6 +294,19 @@ const removeTaskFromList = (ev) => {
     });
 
     updateLocalStoreData(boardData);
+}
+
+// Handle task remove
+const handleTaskDelete = (ev) => {
+    const taskCard = ev.target.parentNode;
+    const taskListCard = taskCard.parentNode;
+
+    taskListCard.removeChild(taskCard);
+
+    taskListId = taskListCard.className;
+    taskId = taskCard.id;
+
+    removeTaskFromList(taskListId, taskId);
 }
 
 // Function to add a List data to Boards JSON Data
@@ -324,8 +329,11 @@ const removeListFromBoard = (listId) => {
  */
 
 const dragStart = (ev) => {
-    // console.log('Start');
-    ev.dataTransfer.setData('Content', ev.target.id);
+    // console.log();
+    const taskListId = ev.target.parentNode.className;
+
+    ev.dataTransfer.setData('taskId', ev.target.id);
+    ev.dataTransfer.setData('sourceListId', taskListId)
     ev.dataTransfer.effectAllowed = 'move';
     ev.target.style.opacity = "0.4";
 }
@@ -359,15 +367,14 @@ const dragDrop = (ev) => {
 
     // Restrict Drop to only List Wrapper
     if (ev.target.className === 'task-list-wrapper') {
-        const taskId = ev.dataTransfer.getData('Content');
+        const taskId = ev.dataTransfer.getData('taskId');
+        const sourceListId = ev.dataTransfer.getData('sourceListId');
         const taskListId = ev.target.id;
         const taskCard = document.getElementById(taskId);
         const taskList = document.querySelector(`.${ev.target.id}`);
         taskList.appendChild(taskCard);
 
-        // TODO: Move Task in JSON data
-        // console.log(taskCard.children);
-
+        // Create JSON data from taskCard
         const elements = taskCard.children;
         let task = {};
         for (let i = 0 ; i < elements.length ; i++) {
@@ -381,13 +388,11 @@ const dragDrop = (ev) => {
             priority: task.priority
         }
 
-        // console.log(task);
+        // Add task to new list
+        addTaskToList(taskListId, task);
 
-        // Add to new list
-        // addTaskToList(taskListId, task);
-
-        // Remove from old list
-        // removeTaskFromList()
+        // Remove task from old list
+        removeTaskFromList(sourceListId, taskId);
     }
 }
 
@@ -417,6 +422,7 @@ const main = () => {
 
     // Check if data is available in localStorage
     if (typeof(Storage) !== "undefined") {
+        console.log('localStorage is supported by browser');
 
         if ('trelloCloneBoard' in localStorage) {
             let localStoreData = getLocalStoreData();
