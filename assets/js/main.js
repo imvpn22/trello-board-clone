@@ -83,6 +83,7 @@ const createTask = (task, taskListCard) => {
         taskCard.appendChild(taskDeleteBtn);
 
         const taskPriority = document.createElement('div');
+        taskPriority.name = 'priority';
         taskPriority.className = 'task-priority';
         taskPriority.classList.add(task.priority === 'high' ? 'high-priority' :
             task.priority === 'medium' ? 'med-priority' : 'low-priority');
@@ -90,6 +91,7 @@ const createTask = (task, taskListCard) => {
         taskCard.appendChild(taskPriority);
 
         const taskDescription = document.createElement('div');
+        taskDescription.name = 'description';
         taskDescription.className = 'task-description';
         taskDescription.innerHTML =  task.description;
         taskCard.appendChild(taskDescription);
@@ -357,19 +359,39 @@ const dragDrop = (ev) => {
 
     // Restrict Drop to only List Wrapper
     if (ev.target.className === 'task-list-wrapper') {
-        const data = ev.dataTransfer.getData('Content');
+        const taskId = ev.dataTransfer.getData('Content');
+        const taskListId = ev.target.id;
+        const taskCard = document.getElementById(taskId);
         const taskList = document.querySelector(`.${ev.target.id}`);
-        taskList.appendChild(document.getElementById(data));
+        taskList.appendChild(taskCard);
 
         // TODO: Move Task in JSON data
+        // console.log(taskCard.children);
 
+        const elements = taskCard.children;
+        let task = {};
+        for (let i = 0 ; i < elements.length ; i++) {
+            const item = elements.item(i);
+            task[item.name] = item.innerHTML;
+        }
+
+        task = {
+            id: taskId,
+            description: task.description,
+            priority: task.priority
+        }
+
+        // console.log(task);
+
+        // Add to new list
+        // addTaskToList(taskListId, task);
+
+        // Remove from old list
+        // removeTaskFromList()
     }
 }
 
-
-/***********************************************
- *    Entry point Function definition
- */
+// Handle localStorage functions
 const getLocalStoreData = () => {
     if (typeof(Storage) !== "undefined") {
         return JSON.parse(localStorage.getItem('trelloCloneBoard'));
@@ -386,14 +408,15 @@ const updateLocalStoreData = (boardData) => {
     }
 }
 
-
+/***********************************************
+ *    Entry point Function definition
+ */
 const main = () => {
 
     let boardData = boards;
 
     // Check if data is available in localStorage
     if (typeof(Storage) !== "undefined") {
-        console.log('localStorage supported');
 
         if ('trelloCloneBoard' in localStorage) {
             let localStoreData = getLocalStoreData();
